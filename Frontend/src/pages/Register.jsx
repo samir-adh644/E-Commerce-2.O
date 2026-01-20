@@ -1,7 +1,11 @@
+import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const navigate = useNavigate();
     const [formData, setFormData]= useState({
         username:"",
         email:"",
@@ -15,9 +19,29 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e)=>{
         e.preventDefault();
         console.log(formData);
+
+        try {
+            const res = await axios.post(
+                "http://localhost:3000/register",
+                formData,
+                {headers:{"Content-Type":"application/json"}}
+            );
+
+            if (res.status === 201) {
+            alert(res.data.message);            // Optional: show success
+            navigate("/login-user");            // Redirect to login                 }
+            }
+
+        } catch (err){
+            if(err.response){
+                alert(err.response.data.message);
+            } else {
+            alert("Network error");
+        }
+            }
     };
 
   return (
