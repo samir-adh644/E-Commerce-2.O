@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-
+import { Link,useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
+    const navigate = useNavigate();
 
     const [formData, setFormData]= useState({
-            username:"",
             email:"",
             password:""
         });
@@ -15,9 +17,31 @@ const Login = () => {
             });
         };
     
-        const handleSubmit = (e)=>{
+        const handleSubmit = async(e)=>{
             e.preventDefault();
             console.log(formData);
+
+            try{
+              const res =await axios.post(
+                "http://localhost:3000/login",
+                formData,
+                {headers:{"Content-Type":"application/json"}}
+              )
+
+               if (res.status === 200) {
+                alert(res.data.message);            // Optional: show success
+                navigate("/");            // Redirect to homepage                 }
+              }
+
+            } catch (error){
+              if(error.response){
+                alert(error.response.data.message);
+            } else {
+            alert("Network error");
+        }
+
+            }
+
         };
 
   return (

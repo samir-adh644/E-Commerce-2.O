@@ -31,6 +31,7 @@ exports.handleRegistration = async (req, res) => {
   });
 };
 
+
 exports.handleLogin = async(req,res)=>{
   try {
   const {email,password} = req.body;
@@ -40,13 +41,14 @@ exports.handleLogin = async(req,res)=>{
     });
   }
 
+    const user = await users.findOne({where:{email:email}});
     if (!user) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-  const user = await users.findOne({where:{email:email}});
+
   const isSame = bcrypt.compareSync(password,user.password)
 
   if(!isSame){
@@ -60,7 +62,7 @@ exports.handleLogin = async(req,res)=>{
   });
 
 } catch (error){
-  cpnsole.error(error);
+  console.error(error);
   return res.status(500).json({
     message:"Server error",
   });
