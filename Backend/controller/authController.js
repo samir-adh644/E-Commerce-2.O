@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { users } = require("../model");
+const jwt = require('jsonwebtoken')
 
 exports.handleRegistration = async (req, res) => {
   const { username, email, password } = req.body;
@@ -52,14 +53,20 @@ exports.handleLogin = async(req,res)=>{
   const isSame = bcrypt.compareSync(password,user.password)
 
   if(!isSame){
-    return res.status(401).json({
+
+      return res.status(401).json({
       message:"Invalid email or password",
-    })
+    });
   }
 
-   return res.status(200).json({
-    message: "Login successful"
-  });
+  const token = jwt.sign({id: user.id},'admin',{
+      expiresIn:'30d'
+    })
+  res.cookie('jwtToken',token)
+  return res.status(200).json({
+    message: "Login successful",
+  }); 
+  
 
 } catch (error){
   console.error(error);

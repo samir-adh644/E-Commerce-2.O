@@ -25,7 +25,9 @@ const Login = () => {
               const res =await axios.post(
                 "http://localhost:3000/login",
                 formData,
-                {headers:{"Content-Type":"application/json"}}
+                {
+                  withCredentials: true,
+                  headers:{"Content-Type":"application/json"}}
               )
 
                if (res.status === 200) {
