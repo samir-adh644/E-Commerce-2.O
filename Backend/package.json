@@ -18,6 +18,8 @@
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.16.1",
     "nodemon": "^3.1.11",
-    "sequelize": "^6.37.7"
+    "promisify": "^0.0.3",
+    "sequelize": "^6.37.7",
+    "util": "^0.12.5"
   }
 }
