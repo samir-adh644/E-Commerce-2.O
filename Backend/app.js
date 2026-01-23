@@ -11,6 +11,7 @@ app.use(cors({ origin: "http://localhost:5173",
 // routes importing
 const authRoute = require('./routes/authRoutes')
 const orderRoute = require('./routes/orderlistRoutes')
+const productRoute = require('./routes/productRoutes')
 
 // very very important
 app.use(express.urlencoded({extended:true}))
@@ -26,6 +27,8 @@ app.get('/',(req,res)=>{
 app.use('/',authRoute)
 
 app.use('/',orderRoute)
+
+app.use('/',productRoute)
 
 
 app.listen(PORT,()=>{

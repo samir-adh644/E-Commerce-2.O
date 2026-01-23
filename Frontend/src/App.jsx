@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Orderlist from './pages/Orderlist';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import UploadProduct from './pages/UploadProduct';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/order_list" element={<Orderlist />} />
         <Route exact path="/login-user" element={<Login />} />
         <Route exact path="/register-user" element={<Register />} />
+        <Route exact path="/upload-product" element={<UploadProduct />} />
       </Routes>
  
     
