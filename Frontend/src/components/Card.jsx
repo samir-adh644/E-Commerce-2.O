@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Card = ({name,price,image}) => {
+const Card = ({id,name,price,image}) => {
 
     console.log(image);
 
     
   return (
+    <Link to={`/product/${id}`}>
     <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
       <img
         src={`http://localhost:3000/storage/${image}`}
@@ -24,6 +26,8 @@ const Card = ({name,price,image}) => {
         </p>
       </div>
     </div>
+
+    </Link>
   );
 };
 
