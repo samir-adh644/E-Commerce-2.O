@@ -20,3 +20,15 @@ exports.uploadProduct = async(req,res)=>{
         message:"Done successfully!"
     })
 }
+
+exports.displayProduct = async(req,res)=>{
+    try{
+          const productData = await products.findAll()
+          return res.status(200).json({success: true,
+            data:productData,
+          });
+    } catch(err){
+        return res.status(500).json({message:"Data Not found"})
+    }
+  
+}
