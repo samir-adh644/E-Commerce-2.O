@@ -6,6 +6,28 @@ const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+
+
+const handleAddToCart = async () => {
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/add-to-cart",
+      {
+        productId: id,
+        quantity: quantity, // 👈 directly from state
+      },
+      {
+        withCredentials: true, // if you use cookies/auth
+      }
+    );
+
+    console.log(res.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
   // State for showing quantity form
   const [cart, setCart] = useState(false);
@@ -38,9 +60,7 @@ const SingleProduct = () => {
     alert(`Buying ${quantity} of ${product.name}`);
   };
 
-  const handleAddToCart = () => {
-    setCart(true);
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -91,14 +111,30 @@ const SingleProduct = () => {
                 Buy Now
               </button>
 
-              <button
+              {!cart &&(
+                 <button
                 onClick={handleAddToCart}
                 className="border border-green-600 text-green-600 px-6 py-2 rounded-lg hover:bg-green-50 transition"
                 disabled={product.stock === 0}
               >
                 Add to Cart
               </button>
+
+
+              )
+              
+              }
+             
             </div>
+
+            {/* for selecting quantity */}
+            <button
+                  type="submit"
+                  className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition "
+                  onClick={()=>{setCart(true)}}
+                >
+                  Select qunatity
+                </button>
 
             {/* Quantity Form - only visible if cart is true */}
             {cart && (
@@ -134,7 +170,7 @@ const SingleProduct = () => {
                   type="submit"
                   className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                 >
-                  Update
+                  Update qunatity
                 </button>
               </form>
             )}
