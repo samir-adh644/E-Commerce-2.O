@@ -14,6 +14,7 @@ app.use(cors({ origin: "http://localhost:5173",
 const authRoute = require('./routes/authRoutes')
 const orderRoute = require('./routes/orderlistRoutes')
 const productRoute = require('./routes/productRoutes')
+const cartRoute = require('./routes/cartRoutes')
 
 // very very important
 app.use(express.urlencoded({extended:true}))
@@ -31,6 +32,8 @@ app.use('/',authRoute)
 app.use('/',orderRoute)
 
 app.use('/',productRoute)
+
+app.use('/',cartRoute)
 
 
 app.listen(PORT,()=>{
