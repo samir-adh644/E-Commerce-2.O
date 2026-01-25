@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UploadProduct from './pages/UploadProduct';
 import SingleProduct from './components/SingleProduct';
+import Carts from './pages/Carts';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/register-user" element={<Register />} />
         <Route exact path="/upload-product" element={<UploadProduct />} />
         <Route exact path='/product/:id' element ={<SingleProduct />} />
+        <Route exact path="/mycart" element={<Carts />} />
       </Routes>
  
     

@@ -1,4 +1,4 @@
-const { carts } = require("../model");
+const { carts, products } = require("../model");
 
 exports.handleAddToCart = async (req, res) => {
   try {
@@ -40,3 +40,24 @@ exports.handleAddToCart = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.showCartList = async(req,res)=>{
+    try{
+        const userId = req.userId;
+        const singleCart = await carts.findAll({
+            where:{userId},
+            attributes:["id","quantity","productId"],
+            include:[
+                {
+                    model: products,
+                    attributes: ['name']
+                }
+            ],
+        });
+        return res.json(singleCart)
+    } catch(err){
+        res.status(500).json({message:"Failed to load"})
+    }
+    
+
+}

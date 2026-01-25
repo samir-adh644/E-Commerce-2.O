@@ -111,7 +111,7 @@ const handleAddToCart = async () => {
                 Buy Now
               </button>
 
-              {!cart &&(
+             
                  <button
                 onClick={handleAddToCart}
                 className="border border-green-600 text-green-600 px-6 py-2 rounded-lg hover:bg-green-50 transition"
@@ -121,9 +121,6 @@ const handleAddToCart = async () => {
               </button>
 
 
-              )
-              
-              }
              
             </div>
 
