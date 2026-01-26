@@ -82,11 +82,52 @@ exports.storeBuyMe = async (req, res) => {
 };
 
 
-exports.renderOrders = async(req,res)=>{
-    const Orders = await orderItems.findAll({
-        where:{userId:req.userId}
-    })
 
-    res.json(Orders)
+exports.renderOrders = async (req, res) => {
+  try {
+    const userId = req.userId; // assumes your auth middleware sets this
 
-}
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // Fetch all orders for this user with their orderItems and products
+    const userOrders = await orders.findAll({
+      where: { userId },
+      order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: orderItems,
+          include: [
+            {
+              model: products,
+              attributes: ["name", "price"] // only fetch necessary info
+            }
+          ]
+        }
+      ]
+    });
+
+    // Structure response
+    const formattedOrders = userOrders.map(order => ({
+      orderId: order.id,
+      totalPrice: order.totalPrice,
+      status: order.status,
+      createdAt: order.createdAt,
+      orderItems: order.orderItems.map(item => ({
+        productName: item.product.name,
+        quantity: item.quantity,
+        price: item.price
+      }))
+    }));
+
+    return res.json(formattedOrders);
+
+  } catch (err) {
+    console.error("FETCH ORDERS ERROR 👉", err);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      error: err.message
+    });
+  }
+};
