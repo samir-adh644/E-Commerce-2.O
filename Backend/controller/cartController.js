@@ -2,8 +2,7 @@ const { carts, products } = require("../model");
 
 exports.handleAddToCart = async (req, res) => {
   try {
-    console.log("BODY:", req.body);
-    console.log("USER:", req.user);
+
 
     const { productId, quantity } = req.body;
     const userId = req.userId

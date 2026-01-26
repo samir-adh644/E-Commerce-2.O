@@ -69,7 +69,9 @@ const handleAddToCart = async () => {
         }
       )
 
+      
     } catch(err){
+      console.log(err)
 
     }
   };

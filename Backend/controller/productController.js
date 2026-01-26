@@ -1,4 +1,4 @@
-const { products } = require("../model")
+const { products, orders } = require("../model")
 
 exports.uploadProduct = async(req,res)=>{
     const {name,description,price,stock} = req.body
@@ -55,3 +55,4 @@ exports.displaySingleProduct = async (req,res)=>{
 
 
 }
+
