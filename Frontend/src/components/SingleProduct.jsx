@@ -56,8 +56,22 @@ const handleAddToCart = async () => {
     if (value > 0) setQuantity(value);
   };
 
-  const handleBuyNow = () => {
-    alert(`Buying ${quantity} of ${product.name}`);
+  const handleBuyNow = async() => {
+    try{
+      const res = await axios.post(
+        "http://localhost:3000/buy-now",
+        {
+          productId: id,
+          quantity: quantity, // 👈 directly from state
+        },
+        {
+           withCredentials: true, // if you use cookies/auth
+        }
+      )
+
+    } catch(err){
+
+    }
   };
 
 
